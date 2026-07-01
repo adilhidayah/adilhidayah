@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Adil Rahmat Hidayah — Structural &amp; Engineer Specialist</title>
+
+<!-- ================================================================
+     FONTS
+     - Inter   : font utama (heading & body) — clean, netral, mudah dibaca
+     - IBM Plex Mono : font "teknis" untuk data, tag, label sheet number
+       (dipakai terbatas supaya terasa seperti anotasi gambar teknik,
+       bukan dekorasi semata)
+     ================================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =====================================================================
+   1. DESIGN TOKENS
+   Ubah nilai di sini untuk mengganti keseluruhan tema warna & tipografi
+   ===================================================================== */
+:root{
+  /* -- palet monokromatik + aksen navy (corporate/engineering) -- */
+  --color-bg:        #ffffff;
+  --color-bg-alt:     #f5f6f8;   /* latar section selang-seling */
+  --color-surface:    #ffffff;   /* latar kartu */
+  --color-border:     #dfe3e8;
+  --color-border-strong: #c6cbd3;
+  --color-ink:        #14181f;   /* teks utama, hampir hitam */
+  --color-muted:       #5b6470;  /* teks sekunder */
+  --color-faint:       #8b929c;  /* teks tersier / meta */
+  --color-navy:        #0b2545;  /* aksen utama */
+  --color-navy-light:  #1d3f72;  /* hover / aksen terang */
+  --color-navy-tint:   #eef2f7;  /* latar badge / hover lembut */
+
+  /* -- tipografi -- */
+  --font-display: 'Inter', -apple-system, sans-serif;
+  --font-body:    'Inter', -apple-system, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Courier New', monospace;
+
+  /* -- layout -- */
+  --max-width: 1180px;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --nav-height: 68px;
+}
+
+/* =====================================================================
+   2. RESET & BASE
+   ===================================================================== */
+*, *::before, *::after{ box-sizing: border-box; margin:0; padding:0; }
+
+html{
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 12px);
+}
+
+body{
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img{ max-width:100%; display:block; }
+a{ color: inherit; text-decoration: none; }
+ul{ list-style: none; }
+button{ font: inherit; cursor: pointer; }
+
+/* fokus keyboard tetap terlihat (aksesibilitas) */
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
+  outline: 2px solid var(--color-navy);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+}
+
+.wrap{
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* label kecil ala "nomor lembar gambar teknik" (SHT. 01/06)
+   -> dipakai di tiap section sebagai penanda urutan yang memang
+      mencerminkan struktur dokumen (seperti drawing set sungguhan) */
+.sheet-label{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--color-faint);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sheet-label::before{
+  content: "";
+  width: 16px;
+  height: 1px;
+  background: var(--color-border-strong);
+}
+
+.section-title{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(26px, 3.2vw, 34px);
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+.section-intro{
+  color: var(--color-muted);
+  max-width: 560px;
+  margin-bottom: 40px;
+  font-size: 15px;
+}
+
+section{ padding: 88px 0; }
+
+/* =====================================================================
+   3. HEADER / NAVIGATION — sticky
+   ===================================================================== */
+.navbar{
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: rgba(255,255,255,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-border);
+}
+.navbar .wrap{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-logo{
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  color: var(--color-navy);
+}
+.nav-logo span{ color: var(--color-faint); }
+
+.nav-links{
+  display: flex;
+  gap: 34px;
+}
+.nav-links a{
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-muted);
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.15s ease;
+}
+.nav-links a:hover{ color: var(--color-navy); }
+.nav-links a::after{
+  content: "";
+  position: absolute;
+  left: 0; bottom: -2px;
+  width: 0; height: 2px;
+  background: var(--color-navy);
+  transition: width 0.18s ease;
+}
+.nav-links a:hover::after{ width: 100%; }
+
+.nav-toggle{
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 8px;
+}
+.nav-toggle span{
+  width: 22px; height: 2px;
+  background: var(--color-ink);
+  display: block;
+}
+
+/* =====================================================================
+   4. HERO SECTION
+   Signature element: garis grid tipis + "tick mark" seperti kertas
+   gambar teknik (blueprint) — dipakai HANYA di hero agar jadi 1
+   momen yang diingat, bukan diulang di semua tempat.
+   ===================================================================== */
+.hero{
+  position: relative;
+  padding: 100px 0 90px;
+  background:
+    linear-gradient(var(--color-border) 1px, transparent 1px) 0 0 / 100% 40px,
+    linear-gradient(90deg, var(--color-border) 1px, transparent 1px) 0 0 / 40px 100%;
+  background-color: var(--color-bg-alt);
+  opacity: 1;
+  overflow: hidden;
+}
+.hero::before{ /* memudarkan grid supaya tidak ramai */
+  content:"";
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.55), rgba(255,255,255,0.92) 70%);
+}
+.hero .wrap{ position: relative; z-index: 1; }
+
+.hero-eyebrow{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--color-navy);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 22px;
+  padding: 6px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: #fff;
+}
+.hero-eyebrow::before{
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-navy);
+}
+
+.hero h1{
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(38px, 6vw, 64px);
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  max-width: 780px;
+}
+
+.hero-role{
+  margin-top: 16px;
+  font-size: clamp(16px, 2vw, 19px);
+  font-weight: 600;
+  color: var(--color-navy);
+}
+.hero-role .divider{ color: var(--color-border-strong); margin: 0 8px; }
+
+.hero-desc{
+  margin-top: 20px;
+  max-width: 600px;
+  color: var(--color-muted);
+  font-size: 16px;
+}
+
+.hero-cta{
+  margin-top: 36px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: all 0.15s ease;
+}
+.btn-primary{
+  background: var(--color-navy);
+  color: #fff;
+}
+.btn-primary:hover{ background: var(--color-navy-light); }
+
+.btn-secondary{
+  background: #fff;
+  color: var(--color-ink);
+  border-color: var(--color-border-strong);
+}
+.btn-secondary:hover{ border-color: var(--color-navy); color: var(--color-navy); }
+
+/* =====================================================================
+   5. PROFESSIONAL HIGHLIGHTS — grid 3 kolom
+   ===================================================================== */
+.highlights-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.highlight-card{
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+.highlight-card:hover{
+  border-color: var(--color-navy);
+  transform: translateY(-2px);
+}
+
+.highlight-icon{
+  width: 42px; height: 42px;
+  border-radius: var(--radius-sm);
+  background: var(--color-navy-tint);
+  color: var(--color-navy);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.highlight-card h3{
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.highlight-card p{
+  color: var(--color-muted);
+  font-size: 14px;
+}
+.highlight-meta{
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-faint);
+  border-top: 1px dashed var(--color-border);
+  padding-top: 12px;
+}
+
+/* =====================================================================
+   6. ENGINEERING JOURNAL — bagian paling utama
+   ===================================================================== */
+.journal{ background: var(--color-bg-alt); }
+
+.journal-filters{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+.filter-btn{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-strong);
+  background: #fff;
+  color: var(--color-muted);
+  transition: all 0.15s ease;
+}
+.filter-btn:hover{ border-color: var(--color-navy); color: var(--color-navy); }
+.filter-btn.active{
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+  color: #fff;
+}
+
+.journal-grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 26px;
+}
+
+.article-card{
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+.article-card:hover{
+  box-shadow: 0 10px 26px rgba(11,37,69,0.09);
+  transform: translateY(-3px);
+}
+
+/* "tanda registrasi" ala gambar teknik di sudut kartu — elemen
+   signature yang sama dengan hero, dipakai konsisten agar terasa
+   satu sistem visual, tapi halus (tidak mengganggu keterbacaan) */
+.article-card::before,
+.article-card::after{
+  content:"";
+  position:absolute;
+  width: 10px; height: 10px;
+  border-color: var(--color-navy);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.article-card::before{ top:8px; left:8px; border-top:2px solid; border-left:2px solid; }
+.article-card::after{ bottom:8px; right:8px; border-bottom:2px solid; border-right:2px solid; }
+.article-card:hover::before,
+.article-card:hover::after{ opacity: 0.55; }
+
+.article-img{
+  width: 100%;
+  aspect-ratio: 16/10;
+  object-fit: cover;
+  background: var(--color-bg-alt);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.article-body{
+  padding: 22px 22px 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.article-tags{
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+.tag{
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: var(--color-navy-tint);
+  color: var(--color-navy);
+}
+
+.article-title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.article-meta{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-faint);
+  margin-bottom: 14px;
+}
+
+.article-snippet{
+  color: var(--color-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.article-link{
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-navy);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  transition: gap 0.15s ease;
+}
+.article-link:hover{ gap: 10px; }
+
+/* =====================================================================
+   7. TECH STACK & SOFTWARE
+   ===================================================================== */
+.stack-groups{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.stack-group{
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 26px;
+}
+.stack-group h3{
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-faint);
+  margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.tool-list{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.tool-item{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.tool-mark{
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+  background: var(--color-navy);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 11px;
+  display: flex; align-items: center; justify-content: center;
+  letter-spacing: -0.02em;
+}
+.tool-name{
+  font-size: 14px;
+  font-weight: 600;
+}
+.tool-sub{
+  font-size: 12px;
+  color: var(--color-faint);
+}
+
+/* =====================================================================
+   8. CONTACT & FOOTER
+   ===================================================================== */
+.contact{ background: var(--color-bg-alt); }
+
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+}
+
+.contact-direct a{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  font-size: 15px;
+  transition: color 0.15s ease;
+}
+.contact-direct a:hover{ color: var(--color-navy); }
+.contact-direct span.small{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-faint);
+  font-weight: 400;
+}
+
+.contact-form{
+  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 28px;
+}
+.form-row{ margin-bottom: 18px; }
+.form-row label{
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+.form-row input,
+.form-row textarea{
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: #fff;
+  color: var(--color-ink);
+}
+.form-row input:focus,
+.form-row textarea:focus{
+  border-color: var(--color-navy);
+}
+.form-row textarea{ resize: vertical; min-height: 110px; }
+
+.form-submit{
+  width: 100%;
+  justify-content: center;
+}
+
+footer{
+  background: var(--color-navy);
+  color: rgba(255,255,255,0.75);
+  padding: 28px 0;
+}
+footer .wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 13px;
+}
+footer .footer-mono{
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* =====================================================================
+   9. RESPONSIVE — mobile-first adjustments
+   ===================================================================== */
+@media (max-width: 900px){
+  .highlights-grid,
+  .journal-grid{ grid-template-columns: repeat(2, 1fr); }
+  .stack-groups{ grid-template-columns: 1fr; }
+  .contact-grid{ grid-template-columns: 1fr; }
+}
+
+@media (max-width: 680px){
+  section{ padding: 64px 0; }
+
+  .nav-links{
+    position: absolute;
+    top: var(--nav-height);
+    left: 0; right: 0;
+    background: #fff;
+    border-bottom: 1px solid var(--color-border);
+    flex-direction: column;
+    gap: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease;
+  }
+  .nav-links.open{ max-height: 320px; }
+  .nav-links a{
+    padding: 16px 24px;
+    width: 100%;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .nav-toggle{ display: flex; }
+
+  .highlights-grid,
+  .journal-grid,
+  .tool-list{ grid-template-columns: 1fr; }
+
+  .hero-cta{ flex-direction: column; }
+  .btn{ width: 100%; justify-content: center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- =====================================================================
+     HEADER / NAVIGATION
+     ===================================================================== -->
+<header class="navbar">
+  <div class="wrap">
+    <a href="#home" class="nav-logo">AW<span>/portfolio</span></a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#home">Home</a>
+      <a href="#highlights">Highlights</a>
+      <a href="#journal">Engineering Journal</a>
+      <a href="#tech-stack">Tech Stack</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Buka menu navigasi" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- =====================================================================
+       SECTION 1 — HERO
+       Ganti nama, headline, dan deskripsi sesuai profil Anda.
+       ===================================================================== -->
+  <section class="hero" id="home">
+    <div class="wrap">
+      <p class="hero-eyebrow">Available for new projects</p>
+
+      <h1>Andra Wicaksana</h1>
+
+      <p class="hero-role">
+        Civil Engineer <span class="divider">|</span> Structural &amp; Offshore Design Specialist
+      </p>
+
+      <p class="hero-desc">
+        Berfokus pada analisis dan desain struktur untuk bangunan gedung serta fasilitas
+        lepas pantai (offshore), dengan pengalaman menangani proyek dari tahap konsep
+        hingga detailed engineering design (DED). Terbiasa bekerja dengan standar API,
+        AISC, dan SNI dalam lingkungan kerja multidisiplin.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#journal" class="btn btn-primary">Lihat Artikel</a>
+        <a href="#" class="btn btn-secondary" download>Unduh CV</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 2 — PROFESSIONAL HIGHLIGHTS
+       Tambah/kurangi <article class="highlight-card"> sesuai kebutuhan.
+       Grid otomatis menjadi 1 kolom di layar HP.
+       ===================================================================== -->
+  <section id="highlights">
+    <div class="wrap">
+      <p class="sheet-label">Sht. 02 / 06 — Highlights</p>
+      <h2 class="section-title">Pencapaian Profesional</h2>
+      <p class="section-intro">
+        Ringkasan proyek, sertifikasi, dan pencapaian yang relevan dengan
+        praktik structural &amp; offshore engineering.
+      </p>
+
+      <div class="highlights-grid">
+
+        <article class="highlight-card">
+          <div class="highlight-icon">01</div>
+          <h3>Desain Struktur Jacket Platform</h3>
+          <p>
+            Memimpin analisis in-place dan fatigue untuk platform lepas pantai
+            di perairan Laut Jawa menggunakan SACS, sesuai standar API RP 2A-WSD.
+          </p>
+          <div class="highlight-meta">PT. Rekayasa Konstruksi — 2024</div>
+        </article>
+
+        <article class="highlight-card">
+          <div class="highlight-icon">02</div>
+          <h3>Juara 1 — Kompetisi Desain Struktur Baja</h3>
+          <p>
+            Meraih penghargaan tingkat nasional untuk desain struktur baja
+            tahan gempa pada ajang Indonesia Structural Engineering Competition.
+          </p>
+          <div class="highlight-meta">HAKI Awards — 2023</div>
+        </article>
+
+        <article class="highlight-card">
+          <div class="highlight-icon">03</div>
+          <h3>Sertifikasi Insinyur Profesional (IPM)</h3>
+          <p>
+            Terdaftar sebagai Insinyur Profesional Madya bidang Teknik Sipil
+            dari Persatuan Insinyur Indonesia (PII).
+          </p>
+          <div class="highlight-meta">PII — Berlaku hingga 2027</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 3 — ENGINEERING JOURNAL (fokus utama)
+       Setiap artikel diberi atribut data-category untuk filter.
+       Ganti gambar (src), tag, judul, tanggal, dan snippet sesuai isi
+       artikel Anda.
+       ===================================================================== -->
+  <section class="journal" id="journal">
+    <div class="wrap">
+      <p class="sheet-label">Sht. 03 / 06 — Engineering Journal</p>
+      <h2 class="section-title">Catatan Rekayasa</h2>
+      <p class="section-intro">
+        Tulisan teknis seputar analisis struktur, desain lepas pantai, dan
+        studi kasus geoteknik dari pengalaman lapangan.
+      </p>
+
+      <!-- filter kategori -->
+      <div class="journal-filters" id="journalFilters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="offshore">Offshore</button>
+        <button class="filter-btn" data-filter="structural">Structural</button>
+        <button class="filter-btn" data-filter="geotechnical">Geotechnical</button>
+      </div>
+
+      <div class="journal-grid" id="journalGrid">
+
+        <!-- Artikel 1 -->
+        <article class="article-card" data-category="offshore">
+          <img class="article-img" src="https://via.placeholder.com/600x375/eef2f7/0b2545?text=Diagram+Jacket+Structure" alt="Diagram struktur jacket platform">
+          <div class="article-body">
+            <div class="article-tags">
+              <span class="tag">#Offshore</span>
+              <span class="tag">#Struktural</span>
+            </div>
+            <h3 class="article-title">Analisis Fatigue pada Struktur Jacket Platform</h3>
+            <p class="article-meta">15 Mei 2026 · 5 min read</p>
+            <p class="article-snippet">
+              Studi kasus perhitungan umur fatigue sambungan tubular joint pada
+              platform lepas pantai menggunakan metode S-N curve.
+            </p>
+            <a href="#" class="article-link">Baca Selengkapnya →</a>
+          </div>
+        </article>
+
+        <!-- Artikel 2 -->
+        <article class="article-card" data-category="structural">
+          <img class="article-img" src="https://via.placeholder.com/600x375/eef2f7/0b2545?text=Model+ETABS+Gedung" alt="Model struktur gedung pada ETABS">
+          <div class="article-body">
+            <div class="article-tags">
+              <span class="tag">#Struktural</span>
+              <span class="tag">#Gempa</span>
+            </div>
+            <h3 class="article-title">Desain Struktur Tahan Gempa dengan Sistem Dual</h3>
+            <p class="article-meta">2 April 2026 · 7 min read</p>
+            <p class="article-snippet">
+              Perbandingan performa sistem rangka pemikul momen dan dinding
+              geser pada gedung 20 lantai di wilayah zona gempa tinggi.
+            </p>
+            <a href="#" class="article-link">Baca Selengkapnya →</a>
+          </div>
+        </article>
+
+        <!-- Artikel 3 -->
+        <article class="article-card" data-category="geotechnical">
+          <img class="article-img" src="https://via.placeholder.com/600x375/eef2f7/0b2545?text=Boring+Log+Data" alt="Data boring log tanah">
+          <div class="article-body">
+            <div class="article-tags">
+              <span class="tag">#Geotechnical</span>
+              <span class="tag">#Pondasi</span>
+            </div>
+            <h3 class="article-title">Interpretasi Data SPT untuk Desain Pondasi Tiang</h3>
+            <p class="article-meta">20 Maret 2026 · 6 min read</p>
+            <p class="article-snippet">
+              Panduan praktis membaca hasil uji Standard Penetration Test dan
+              korelasinya terhadap daya dukung pondasi tiang pancang.
+            </p>
+            <a href="#" class="article-link">Baca Selengkapnya →</a>
+          </div>
+        </article>
+
+        <!-- Artikel 4 -->
+        <article class="article-card" data-category="offshore">
+          <img class="article-img" src="https://via.placeholder.com/600x375/eef2f7/0b2545?text=Mooring+Analysis" alt="Diagram analisis mooring">
+          <div class="article-body">
+            <div class="article-tags">
+              <span class="tag">#Offshore</span>
+              <span class="tag">#Mooring</span>
+            </div>
+            <h3 class="article-title">Dasar-Dasar Analisis Mooring System pada FPSO</h3>
+            <p class="article-meta">8 Februari 2026 · 8 min read</p>
+            <p class="article-snippet">
+              Mengenal konfigurasi spread mooring dan parameter utama dalam
+              evaluasi kekuatan tali tambat pada unit terapung.
+            </p>
+            <a href="#" class="article-link">Baca Selengkapnya →</a>
+          </div>
+        </article>
+
+        <!-- Artikel 5 -->
+        <article class="article-card" data-category="structural">
+          <img class="article-img" src="https://via.placeholder.com/600x375/eef2f7/0b2545?text=STAAD.Pro+Model" alt="Model struktur pada STAAD.Pro">
+          <div class="article-body">
+            <div class="article-tags">
+              <span class="tag">#Struktural</span>
+              <span class="tag">#Baja</span>
+            </div>
+            <h3 class="article-title">Optimasi Desain Struktur Baja dengan Pendekatan LRFD</h3>
+            <p class="article-meta">14 Januari 2026 · 4 min read</p>
+            <p class="article-snippet">
+              Studi efisiensi material pada rangka baja bentang panjang
+              menggunakan metode Load and Resistance Factor Design.
+            </p>
+            <a href="#" class="article-link">Baca Selengkapnya →</a>
+          </div>
+        </article>
+
+        <!-- Artikel 6 -->
+        <article class="article-card" data-category="geotechnical">
+          <img class="article-img" src="https://via.placeholder.com/600x375/eef2f7/0b2545?text=Slope+Stability" alt="Analisis kestabilan lereng">
+          <div class="article-body">
+            <div class="article-tags">
+              <span class="tag">#Geotechnical</span>
+              <span class="tag">#Lereng</span>
+            </div>
+            <h3 class="article-title">Evaluasi Kestabilan Lereng pada Area Tambang Terbuka</h3>
+            <p class="article-meta">30 Desember 2025 · 6 min read</p>
+            <p class="article-snippet">
+              Penerapan metode Bishop dan Janbu dalam menghitung faktor
+              keamanan lereng pada kondisi statik dan pseudo-statik.
+            </p>
+            <a href="#" class="article-link">Baca Selengkapnya →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 4 — TECH STACK & SOFTWARE
+       Tambah/hapus <div class="tool-item"> sesuai software yang dikuasai.
+       ===================================================================== -->
+  <section id="tech-stack">
+    <div class="wrap">
+      <p class="sheet-label">Sht. 04 / 06 — Tech Stack</p>
+      <h2 class="section-title">Software &amp; Perangkat Analisis</h2>
+      <p class="section-intro">
+        Perangkat lunak yang digunakan secara rutin untuk analisis struktur,
+        pemodelan, dan penggambaran teknik.
+      </p>
+
+      <div class="stack-groups">
+
+        <div class="stack-group">
+          <h3>Structural Analysis</h3>
+          <div class="tool-list">
+            <div class="tool-item">
+              <div class="tool-mark">SACS</div>
+              <div>
+                <div class="tool-name">SACS</div>
+                <div class="tool-sub">Offshore structure analysis</div>
+              </div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-mark">STD</div>
+              <div>
+                <div class="tool-name">STAAD.Pro</div>
+                <div class="tool-sub">Structural design & analysis</div>
+              </div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-mark">SAP</div>
+              <div>
+                <div class="tool-name">SAP2000</div>
+                <div class="tool-sub">Finite element analysis</div>
+              </div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-mark">ETB</div>
+              <div>
+                <div class="tool-name">ETABS</div>
+                <div class="tool-sub">Building system analysis</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-group">
+          <h3>Programming &amp; CAD</h3>
+          <div class="tool-list">
+            <div class="tool-item">
+              <div class="tool-mark">MAT</div>
+              <div>
+                <div class="tool-name">MATLAB</div>
+                <div class="tool-sub">Numerical computation</div>
+              </div>
+            </div>
+            <div class="tool-item">
+              <div class="tool-mark">ACD</div>
+              <div>
+                <div class="tool-name">AutoCAD</div>
+                <div class="tool-sub">Technical drafting</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================================================================
+       SECTION 5 — CONTACT
+       Ganti alamat email, LinkedIn, dan action form sesuai kebutuhan.
+       Form ini murni tampilan (front-end) — hubungkan ke backend/
+       layanan form (mis. Formspree) agar dapat mengirim data sungguhan.
+       ===================================================================== -->
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <p class="sheet-label">Sht. 05 / 06 — Contact</p>
+      <h2 class="section-title">Mari Berdiskusi</h2>
+      <p class="section-intro">
+        Terbuka untuk peluang kolaborasi proyek, konsultasi teknis, maupun
+        diskusi seputar structural &amp; offshore engineering.
+      </p>
+
+      <div class="contact-grid">
+
+        <div class="contact-direct">
+          <a href="mailto:andra.wicaksana@email.com">
+            Email
+            <span class="small">andra.wicaksana@email.com</span>
+          </a>
+          <a href="https://linkedin.com/in/andrawicaksana" target="_blank" rel="noopener">
+            LinkedIn
+            <span class="small">linkedin.com/in/andrawicaksana</span>
+          </a>
+          <a href="#">
+            Lokasi
+            <span class="small">Jakarta, Indonesia</span>
+          </a>
+        </div>
+
+        <form class="contact-form" action="#" method="post">
+          <div class="form-row">
+            <label for="name">Nama</label>
+            <input type="text" id="name" name="name" placeholder="Nama lengkap Anda" required>
+          </div>
+          <div class="form-row">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+          </div>
+          <div class="form-row">
+            <label for="message">Pesan</label>
+            <textarea id="message" name="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">Kirim Pesan</button>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- =====================================================================
+     FOOTER
+     ===================================================================== -->
+<footer>
+  <div class="wrap">
+    <span>© 2026 Andra Wicaksana. Seluruh hak cipta dilindungi.</span>
+    <span class="footer-mono">Sht. 06 / 06 — End of document</span>
+  </div>
+</footer>
+
+<!-- =====================================================================
+     JAVASCRIPT
+     1. Toggle menu navigasi di layar mobile
+     2. Filter kategori pada Engineering Journal
+     ===================================================================== -->
+<script>
+  // --- 1. Toggle nav mobile ---
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  // tutup menu otomatis saat salah satu link diklik (khusus mobile)
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', false);
+    });
+  });
+
+  // --- 2. Filter kategori Engineering Journal ---
+  const filterButtons = document.querySelectorAll('.filter-btn');
+  const articleCards = document.querySelectorAll('.article-card');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // atur state tombol aktif
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      articleCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const show = (filter === 'all' || filter === category);
+        card.style.display = show ? '' : 'none';
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
