@@ -457,3 +457,5 @@ foreignObject .fc-t{box-sizing:border-box}
 .ptable td{text-align:left;vertical-align:top;padding:10px 12px 10px 0;border-bottom:1px solid var(--glass-border)}
 .ptable td:first-child{white-space:nowrap}
 @media (max-width:760px){.ptable{min-width:620px}}
+
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
